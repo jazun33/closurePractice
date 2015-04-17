@@ -6,15 +6,17 @@ var outer = function(){
     return 'The original name was ' + name;
   }
 }
-//Above you're given a function that returns another function which has a closure over the name variable.
+//Above you're given a function that returns another function which has a closure
+//over the name variable.
 //Invoke outer saving the return value into another variable called 'inner'.
 
   //Code Here
+var inner = outer();
 
 //Once you do that, invoke inner.
 
   //Code Here
-
+console.log( inner() );
 
 
 //Next problem
@@ -30,10 +32,11 @@ var callFriend = function(){
 };
 
 //Above you're given a callFriend function that returns another function.
-//Do what you need to do in order to call your function and get 'Calling Jake at 435-215-9248' in your console.
+//Do what you need to do in order to call your function and get 'Calling Jake at
+//435-215-9248' in your console.
 
   //Code Here
-
+console.log( callFriend()('435-215-9248') );
 
 
 //Next Problem
@@ -44,12 +47,21 @@ var callFriend = function(){
   Write a function called makeCounter that makes the following code work properly.
 */
 
-  //Code Here
-  var count = makeCounter();
-  count() // 1
-  count() // 2
-  count() // 3
-  count() // 4
+var makeCounter = function() {
+    var counter = 0;
+    var increment = function() {
+        counter++;
+        return counter
+    };
+    return increment;
+};
+
+//Code Here
+var count = makeCounter();
+console.log( count() ); // 1
+console.log( count() ); // 2
+console.log( count() ); // 3
+console.log( count() ); // 4
 
 
 
@@ -58,12 +70,28 @@ var callFriend = function(){
 
 
 /*
-  Write a function that accepts another function as it's first argument and returns a new function
-  (which invokes the original function that was passed in) that can only ever be executed once.
-  Once completed, add a second arguments that allows the function to be invoked N number of times.
+  Write a function that accepts another function as it's first argument and
+  returns a new function (which invokes the original function that was passed in)
+  that can only ever be executed once.
+
+  Once completed, add a second arguments that allows the function to be invoked
+  N number of times.
+
   After the function has been called N number of times, console.log('STAHHP');
 */
 
 
+var outer = function(fn, runs) {
+  return function(){
+    for (var i = 0; i < runs; i++) {
+      fn();
+    }
+    console.log('STAHHP');
+  }
+}
 
+var funRun = function() {
+  console.log("HEY!");
+}
 
+outer(funRun, 5)();
